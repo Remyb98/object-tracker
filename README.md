@@ -14,7 +14,7 @@ m
 
 Install via Composer:
 ```bash
-composer require your-namespace/trackable
+composer require remyb98/object-tracker
 ```
 
 ## Usage
