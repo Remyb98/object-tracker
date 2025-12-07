@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace Remyb98\ObjectTracker\Tests;
 
 use PHPUnit\Framework\TestCase;
-use App\Trait\Trackable;
-use App\Attribute\Track;
+use Remyb98\ObjectTracker\Attribute\Track;
+use Remyb98\ObjectTracker\Trait\Trackable;
 
 
 /**
@@ -84,7 +84,7 @@ class TrackableTest extends TestCase
         return $p->getValue($object);
     }
 
-    public function testSnapshotStoresInitialValues()
+    public function testSnapshotStoresInitialValues(): void
     {
         $obj = new DummyObject("Alice", 30, new DummyRole("Admin"));
         $obj->snapshot();
@@ -134,7 +134,7 @@ class TrackableTest extends TestCase
         $this->assertArrayHasKey('years', $data);
     }
 
-    public function testDisplayValueOnObject()
+    public function testDisplayValueOnObject(): void
     {
         $obj = new DummyObject("Alice", 30, new DummyRole("Admin"));
         $obj->snapshot();
@@ -154,7 +154,7 @@ class TrackableTest extends TestCase
     /**
      * Objet : display inexistant → fallback __toString → fallback [Class]
      */
-    public function testDisplayPropertyMissingFallsBackCorrectly()
+    public function testDisplayPropertyMissingFallsBackCorrectly(): void
     {
         $obj = new DummyObject("Alice", 30, new DummyRole("Admin"));
         $obj->snapshot();
@@ -167,7 +167,7 @@ class TrackableTest extends TestCase
 
         // Before = "[DummyNoDisplay]"
         $this->assertEquals(null, $value['before']);
-        $this->assertEquals("[App\Tests\DummyNoDisplay]", $value['after']);
+        $this->assertEquals("[Remyb98\ObjectTracker\Tests\DummyNoDisplay]", $value['after']);
     }
 
     /**

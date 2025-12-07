@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Attribute;
+namespace Remyb98\ObjectTracker\Attribute;
 
 use Attribute;
 

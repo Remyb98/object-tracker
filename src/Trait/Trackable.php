@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Trait;
+namespace Remyb98\ObjectTracker\Trait;
 
 use ReflectionClass;
 use ReflectionProperty;
-use App\Attribute\Track;
+use Remyb98\ObjectTracker\Attribute\Track;
 
 trait Trackable
 {
