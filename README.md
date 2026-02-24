@@ -4,7 +4,7 @@
 It captures the initial state of an object and detects modifications on properties annotated with the `#[Track]` attribute.
 
 ## Features
-m
+
 - Track changes in object properties
 - Supports PHP 8+ attributes
 - Use aliases or a display property for objects

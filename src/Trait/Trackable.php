@@ -2,9 +2,11 @@
 
 namespace Remyb98\ObjectTracker\Trait;
 
+use DateTimeInterface;
 use ReflectionClass;
 use ReflectionProperty;
 use Remyb98\ObjectTracker\Attribute\Track;
+use UnitEnum;
 
 trait Trackable
 {
@@ -43,16 +45,18 @@ trait Trackable
         $reflection = new ReflectionClass($this);
         $data = [];
 
-        foreach ($reflection->getProperties() as $property) {
-            $trackAttribute = $this->getTrackAttribute($property);
-            if ($trackAttribute) {
-                $alias = $trackAttribute->alias ?? $property->getName();
-                $data[$alias] = $this->formatValue(
-                    $property->getValue($this),
-                    $trackAttribute
-                );
+        do {
+            foreach ($reflection->getProperties() as $property) {
+                $trackAttribute = $this->getTrackAttribute($property);
+                if ($trackAttribute) {
+                    $alias = $trackAttribute->alias ?? $property->getName();
+                    $data[$alias] = $this->formatValue(
+                        $property->getValue($this),
+                        $trackAttribute
+                    );
+                }
             }
-        }
+        } while ($reflection = $reflection->getParentClass());
 
         return $data;
     }
@@ -65,6 +69,14 @@ trait Trackable
 
     private function formatValue(mixed $value, Track $attribute): ?string
     {
+        if ($value instanceof DateTimeInterface) {
+            return $value->format('c');
+        }
+
+        if ($value instanceof UnitEnum) {
+            return $value->name;
+        }
+
         if (is_object($value)) {
             if ($attribute->display) {
                 $reflection = new ReflectionClass($value);
